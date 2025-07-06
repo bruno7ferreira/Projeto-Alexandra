@@ -1,87 +1,186 @@
-/* Estilo base */
+/* === Reset mínimo === */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Body e tipografia === */
 body {
-    background-color: #111;
-    color: white;
-    font-family: Arial, sans-serif;
-    padding: 20px;
+  background-color: #121214;
+  color: #e1e1e6;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  line-height: 1.6;
+  padding: 20px;
 }
 
-/* Labels e inputs */
-label {
-    display: inline-block;
-    width: 120px;
-    margin-top: 10px;
-}
-
-input, select, button {
-    margin-top: 10px;
-    padding: 5px;
-    background: #222;
-    color: white;
-    border: 1px solid #444;
-    border-radius: 3px;
-}
-
-input[type="number"]::-webkit-inner-spin-button {
-    filter: invert(1);
-}
-
-/* Botão */
-button, .btn {
-    background-color: #444;
-    color: white;
-    padding: 6px 12px;
-    margin-top: 10px;
-    text-decoration: none;
-    border: 1px solid #666;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover, .btn:hover {
-    background-color: #666;
-}
-
-/* Tabelas */
-table {
-    margin-top: 20px;
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th, td {
-    padding: 8px;
-    border: 1px solid #555;
-    text-align: left;
-    color: white;
-}
-
-/* Cabeçalhos */
+/* Melhora visual dos títulos */
 h1, h2 {
-    color: white;
+  margin-bottom: 1rem;
+  font-weight: 700;
+  color: #fff;
 }
 
-/* Links */
+/* === Formulários === */
+label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: 600;
+  color: #c4c4cc;
+}
+
+input[type="text"],
+input[type="tel"],
+input[type="number"],
+input[type="datetime-local"],
+select,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  background-color: #1f1f23;
+  color: #e1e1e6;
+  border: 1px solid #444;
+  border-radius: 4px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #8257e5;
+  box-shadow: 0 0 0 2px rgba(130,87,229,0.3);
+}
+
+button {
+  margin-top: 1.5rem;
+  padding: 10px 20px;
+  background-color: #8257e5;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #9466ff;
+}
+
+/* Links de volta */
 a {
-    color: #a377ff;
-    text-decoration: none;
+  color: #a855f7;
+  text-decoration: none;
 }
 
 a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
-/* Listagem de totais */
-ul {
-    list-style: none;
-    padding: 0;
+/* === Tabelas === */
+.table {
+  width: 100%;
+  margin-top: 2rem;
+  border-collapse: collapse;
+  font-size: 0.95rem;
 }
 
-ul li {
-    margin-bottom: 8px;
-    color: #ccc;
+.table th,
+.table td {
+  padding: 12px 8px;
+  border: 1px solid #2c2c2e;
+  vertical-align: middle;
 }
 
-strong {
-    color: white;
+.table th {
+  background-color: #1f1f23;
+  color: #e1e1e6;
+  font-weight: 600;
+}
+
+/* Linhas alternadas e hover */
+.table tr:nth-child(odd) {
+  background-color: rgba(255,255,255,0.05);
+}
+
+.table tr:hover {
+  background-color: rgba(130,87,229,0.1);
+}
+
+/* === Destaque de colunas específicas === */
+/* Cabeçalho com fundo levemente diferenciado */
+.table thead {
+  background-color: #2a2a2e;
+}
+
+/* Coluna 1: Cliente */
+.table tbody td:nth-child(1) {
+  background-color: rgba(53,59,72,0.4);
+}
+
+/* Coluna 2: Data */
+.table tbody td:nth-child(2) {
+  background-color: rgba(64,115,158,0.4);
+}
+
+/* Coluna 3: Horário */
+.table tbody td:nth-child(3) {
+  background-color: rgba(25,42,86,0.4);
+}
+
+/* Coluna 4: Descrição */
+.table tbody td:nth-child(4) {
+  background-color: rgba(68,189,50,0.4);
+}
+
+/* Coluna 5: Valor (R$) */
+.table tbody td:nth-child(5) {
+  background-color: rgba(225,177,44,0.4);
+}
+
+/* === Ações dentro da tabela === */
+.btn-action {
+  display: inline-block;
+  margin-right: 0.5rem;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.btn-action.edit {
+  background-color: #facc15;
+  color: #121214;
+}
+
+.btn-action.delete {
+  background-color: #dc2626;
+  color: #fff;
+}
+
+.btn-action.edit:hover {
+  background-color: #fde047;
+}
+
+.btn-action.delete:hover {
+  background-color: #ef4444;
+}
+
+/* === Cards e containers === */
+.card {
+  background-color: #1f1f23;
+  padding: 1.5rem;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  margin-bottom: 2rem;
+}
+
+/* Separador horizontal */
+hr {
+  border: none;
+  height: 1px;
+  background-color: #2c2c2e;
+  margin: 2rem 0;
 }
