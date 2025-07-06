@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Agendamento</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Editar Agendamento</h1>
+        
+        <form th:action="@{/agenda/atualizar/{id}(id=${agendamento.id})}" 
+              th:object="${agendamento}" method="post">
+            
+            <div class="form-group">
+                <label>Cliente:</label>
+                <select th:field="*{cpfCliente}" class="form-control" required>
+                    <option th:each="cliente : ${clientes}"
+                            th:value="${cliente.cpf}"
+                            th:text="${cliente.nomeCompleto} + ' (' + ${cliente.cpf} + ')'"
+                            th:selected="${cliente.cpf == agendamento.cpfCliente}">
+                    </option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Data e Hora:</label>
+                <input type="datetime-local" th:field="*{horarioAtendimento}" 
+                       class="form-control" required
+                       th:value="${#temporals.format(agendamento.horarioAtendimento, 'yyyy-MM-dd\'T\'HH:mm')}">
+            </div>
+            
+            <div class="form-group">
+                <label>Procedimento:</label>
+                <input type="text" th:field="*{procedimento}" class="form-control" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            <a th:href="@{/agenda}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

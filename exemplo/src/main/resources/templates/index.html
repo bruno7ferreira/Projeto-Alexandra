@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Agendamento</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 80px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+        }
+
+        p {
+            margin-top: 10px;
+            font-size: 1.1em;
+            color: #ccc;
+        }
+
+        a.btn {
+            display: block;
+            width: 280px;
+            margin: 20px auto;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        a.btn-primary {
+            background-color: #007bff;
+        }
+
+        a.btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        a.btn-success {
+            background-color: #218838;
+        }
+
+        a.btn-success:hover {
+            background-color: #19692c;
+        }
+
+        a.btn-info {
+            background-color: #17a2b8;
+        }
+
+        a.btn-info:hover {
+            background-color: #117a8b;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bem-vindo ao Sistema de Agendamento</h1>
+    <p>Gerencie seus clientes, agendamentos e procedimentos de forma simples e eficiente.</p>
+
+    <a href="/clientes/novo" class="btn btn-primary">
+        👤 Gerenciar Clientes
+    </a>
+
+    <a href="/agenda" class="btn btn-success">
+        📅 Ver Agenda
+    </a>
+
+    <a href="/procedimentos" class="btn btn-info">
+        🩺 Procedimentos
+    </a>
+</body>
+</html>

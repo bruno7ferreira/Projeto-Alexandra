@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Procedimentos Realizados</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h1>Procedimentos Realizados</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Data</th>
+        <th>Horário</th>
+        <th>Descrição</th>
+        <th>Valor (R$)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="proc : ${procedimentos}">
+        <td th:text="${proc.cliente.nome}"></td>
+        <td th:text="${#temporals.format(proc.data, 'dd/MM/yyyy')}"></td>
+        <td th:text="${#temporals.format(proc.horario, 'HH:mm')}"></td>
+        <td th:text="${proc.descricao}"></td>
+        <td th:text="${#numbers.formatDecimal(proc.valor, 1, 'COMMA', 2, 'POINT')}"></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Total Recebido</h2>
+  <ul>
+    <li><strong>Hoje:</strong> R$ <span th:text="${#numbers.formatDecimal(totalDia, 1, 'COMMA', 2, 'POINT')}">0,00</span></li>
+    <li><strong>Semana:</strong> R$ <span th:text="${#numbers.formatDecimal(totalSemana, 1, 'COMMA', 2, 'POINT')}">0,00</span></li>
+    <li><strong>Mês:</strong> R$ <span th:text="${#numbers.formatDecimal(totalMes, 1, 'COMMA', 2, 'POINT')}">0,00</span></li>
+  </ul>
+
+  <a href="/" class="btn-back">← Voltar</a>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Agendamento</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        select, input, button { padding: 8px; margin-bottom: 10px; }
+        button { background: #4285f4; color: white; border: none; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Novo Agendamento</h1>
+        
+        <form th:action="@{/agenda/salvar}" th:object="${agendamento}" method="post">
+            <div class="form-group">
+                <label>Cliente:</label>
+                <select th:field="*{cpfCliente}" required>
+                    <option value="">Selecione um cliente</option>
+                    <option th:each="cliente : ${clientes}" 
+                            th:value="${cliente.cpf}"
+                            th:text="${cliente.nomeCompleto + ' - ' + cliente.cpf}">
+                    </option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Data e Hora:</label>
+                <input type="datetime-local" th:field="*{horarioAtendimento}" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Procedimentos:</label>
+                <input type="text" th:field="*{procedimento}" required>
+            </div>
+            
+            <button type="submit">Agendar</button>
+        </form>
+        
+        <p style="margin-top: 20px;">
+            <a th:href="@{/agenda}">← Voltar para Agenda</a>
+        </p>
+    </div>
+</body>
+</html>

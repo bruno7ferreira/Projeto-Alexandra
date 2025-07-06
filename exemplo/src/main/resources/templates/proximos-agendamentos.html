@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Próximos Agendamentos</title>
+</head>
+<body>
+    <h1>Agenda do Dia</h1>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Horário</th>
+                <th>Cliente</th>
+                <th>Procedimentos</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="agendamento : ${agendamentos}">
+                <td th:text="${agendamento.data}"></td>
+                <td th:text="${agendamento.horario}"></td>
+                <td th:text="${agendamento.cliente.nome}"></td>
+                <td th:text="${agendamento.procedimentos}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div>
+        <a th:if="${paginaAtual > 0}" th:href="@{'/proximos-agendamentos'(page=${paginaAtual - 1})}">Anterior</a>
+        |
+        <a th:if="${paginaAtual + 1 < totalPaginas}" th:href="@{'/proximos-agendamentos'(page=${paginaAtual + 1})}">Próxima</a>
+    </div>
+</body>
+</html>

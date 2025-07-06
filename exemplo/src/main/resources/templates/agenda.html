@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agenda do Dia</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Agendar Atendimento</h1>
+
+    <form th:action="@{/agenda/salvar}" th:object="${agenda}" method="post">
+        <label>Cliente:</label>
+        <select th:field="*{cliente}">
+            <option value="" disabled selected>Selecione</option>
+            <option th:each="c : ${clientes}" th:value="${c.cpf}" th:text="${c.nome}"></option>
+        </select><br>
+
+        <label>Procedimento:</label>
+        <input type="text" th:field="*{procedimento}" /><br>
+
+        <label>Valor:</label>
+        <input type="number" step="0.01" th:field="*{valor}" /><br>
+
+        <label>Data e Hora:</label>
+        <input type="datetime-local" th:field="*{horarioAtendimento}" /><br>
+
+        <button type="submit">Agendar</button>
+    </form>
+
+    <hr>
+
+    <h2>Agendamentos Realizados</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Cliente</th>
+                <th>Procedimento</th>
+                <th>Valor</th>
+                <th>Data/Hora</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${agendamentos}">
+                <td th:text="${item.cliente.nome}">Nome</td>
+                <td th:text="${item.procedimento}">Proc</td>
+                <td th:text="${item.valor}">0.00</td>
+                <td th:text="${#temporals.format(item.horarioAtendimento, 'dd/MM/yyyy HH:mm')}">data</td>
+                <td>
+                    <a th:href="@{/agenda/editar/{id}(id=${item.id})}">Editar</a> |
+                    <a th:href="@{/agenda/excluir/{id}(id=${item.id})}" onclick="return confirm('Confirma exclusão?')">Excluir</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="/" class="btn">← Voltar</a>
+</body>
+</html>

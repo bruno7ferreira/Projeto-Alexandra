@@ -1,0 +1,87 @@
+/* Estilo base */
+body {
+    background-color: #111;
+    color: white;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+/* Labels e inputs */
+label {
+    display: inline-block;
+    width: 120px;
+    margin-top: 10px;
+}
+
+input, select, button {
+    margin-top: 10px;
+    padding: 5px;
+    background: #222;
+    color: white;
+    border: 1px solid #444;
+    border-radius: 3px;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+    filter: invert(1);
+}
+
+/* Botão */
+button, .btn {
+    background-color: #444;
+    color: white;
+    padding: 6px 12px;
+    margin-top: 10px;
+    text-decoration: none;
+    border: 1px solid #666;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover, .btn:hover {
+    background-color: #666;
+}
+
+/* Tabelas */
+table {
+    margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+    border: 1px solid #555;
+    text-align: left;
+    color: white;
+}
+
+/* Cabeçalhos */
+h1, h2 {
+    color: white;
+}
+
+/* Links */
+a {
+    color: #a377ff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Listagem de totais */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 8px;
+    color: #ccc;
+}
+
+strong {
+    color: white;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Cliente</title>
+    <style>
+        body { background-color: #111; color: white; font-family: sans-serif; }
+        input, select { margin: 5px; }
+        table { width: 100%; margin-top: 20px; border-collapse: collapse; }
+        th, td { padding: 10px; border: 1px solid white; }
+        a { color: violet; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<h1>Novo Cliente</h1>
+
+<form th:action="@{/clientes/salvar}" method="post" th:object="${cliente}">
+    <label>Nome Completo: <input type="text" th:field="*{nome}" required/></label><br>
+    <label>CPF: <input type="text" th:field="*{cpf}" required/></label><br>
+    <label>Telefone: <input type="text" th:field="*{telefone}" required/></label><br>
+    <label>Sexo:
+        <select th:field="*{sexo}" required>
+            <option value="">Selecione</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+        </select>
+    </label><br>
+    <label>Idade: <input type="number" th:field="*{idade}" required/></label><br>
+    <button type="submit">Salvar</button>
+</form>
+
+<hr>
+
+<h2>Clientes Cadastrados</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>Sexo</th>
+            <th>Idade</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="c : ${clientes}">
+            <td th:text="${c.nome}"></td>
+            <td th:text="${c.cpf}"></td>
+            <td th:text="${c.telefone}"></td>
+            <td th:text="${c.sexo}"></td>
+            <td th:text="${c.idade}"></td>
+            <td>
+                <a th:href="@{/clientes/editar/{cpf}(cpf=${c.cpf})}">Editar</a> |
+                <a th:href="@{/clientes/excluir/{cpf}(cpf=${c.cpf})}" onclick="return confirm('Deseja excluir?')">Excluir</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<br><a href="/">← Voltar</a>
+
+</body>
+</html>

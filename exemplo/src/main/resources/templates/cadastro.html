@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${#strings.capitalize(#request.getRequestURI().split('/')[1])} + ' - Cadastro'">Cadastro</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-container { max-width: 600px; margin: 0 auto; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .header { display: flex; justify-content: space-between; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="header">
+            <h1 th:text="${#strings.capitalize(#request.getRequestURI().split('/')[1])} + ' - Cadastro'">Cadastro</h1>
+            <a href="/">Voltar</a>
+        </div>
+
+        <!-- Formulário dinâmico baseado na URL -->
+        <form th:action="@{${#request.getRequestURI()}}" th:object="${#request.getRequestURI().contains('clientes') ? cliente : (#request.getRequestURI().contains('agenda') ? agendamento : procedimento)}" method="post">
+            
+            <!-- Cliente -->
+            <div th:if="${#request.getRequestURI().contains('clientes')}">
+                <div class="form-group">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" id="cpf" th:field="*{cpf}" required>
+                </div>
+                <div class="form-group">
+                    <label for="nomeCompleto">Nome Completo:</label>
+                    <input type="text" id="nomeCompleto" th:field="*{nomeCompleto}" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone:</label>
+                    <input type="tel" id="telefone" th:field="*{telefone}">
+                </div>
+            </div>
+
+            <!-- Agenda -->
+            <div th:if="${#request.getRequestURI().contains('agenda')}">
+                <div class="form-group">
+                    <label for="horarioAtendimento">Data/Hora:</label>
+                    <input type="datetime-local" id="horarioAtendimento" th:field="*{horarioAtendimento}" required>
+                </div>
+                <div class="form-group">
+                    <label for="procedimento">Procedimento:</label>
+                    <input type="text" id="procedimento" th:field="*{procedimento}" required>
+                </div>
+                <input type="hidden" th:field="*{cpfCliente}">
+                <input type="hidden" th:field="*{nomeCliente}">
+            </div>
+
+            <!-- Procedimento -->
+            <div th:if="${#request.getRequestURI().contains('procedimentos')}">
+                <div class="form-group">
+                    <label for="descricao">Descrição:</label>
+                    <textarea id="descricao" th:field="*{descricao}" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="valor">Valor:</label>
+                    <input type="number" step="0.01" id="valor" th:field="*{valor}" required>
+                </div>
+                <input type="hidden" th:field="*{cpfCliente}">
+                <input type="hidden" th:field="*{dataProcedimento}">
+            </div>
+
+            <button type="submit">Salvar</button>
+        </form>
+    </div>
+</body>
+</html>
