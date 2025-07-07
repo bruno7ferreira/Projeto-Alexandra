@@ -19,44 +19,44 @@ import com.example.demo.repository.ProcedimentoRepository;
 public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+      SpringApplication.run(DemoApplication.class, args);
     }
 
     @Bean
     public CommandLineRunner initData(
-            AgendaRepository agendaRepo,
-            ClienteRepository clienteRepo,
-            ProcedimentoRepository procedimentoRepo) {
-        return args -> {
-            if (clienteRepo.count() == 0 && agendaRepo.count() == 0) {
-                // — Cliente de teste —
-                Cliente cliente = new Cliente();
-                cliente.setCpf("123.456.789-00");
-                cliente.setNome("Cliente Teste");
-                cliente.setTelefone("(11) 99999-9999");
-                cliente.setSexo("Masculino");
-                cliente.setIdade(30);
-                clienteRepo.save(cliente);
+         ClienteRepository clienteRepo,
+         AgendaRepository agendaRepo,
+         ProcedimentoRepository procRepo
+    ) {
+      return args -> {
+        if (clienteRepo.count() == 0) {
+          // — Cliente de exemplo —
+          Cliente cli = new Cliente();
+          cli.setCpf("123.456.789-00");
+          cli.setNomeCompleto("Cliente Teste");
+          cli.setTelefone("(11) 99999-9999");
+          cli.setSexo("Masculino");
+          cli.setIdade(30);
+          clienteRepo.save(cli);
 
-                // — Agendamento de teste —
-                Agenda agenda = new Agenda();
-                agenda.setCliente(cliente);
-                agenda.setHorarioAtendimento(LocalDateTime.now().plusHours(2));
-                agenda.setProcedimento("Consulta de Rotina");
-                agendaRepo.save(agenda);
+          // — Agendamento de exemplo —
+          Agenda ag = new Agenda();
+          ag.setCliente(cli);
+          ag.setHorarioAtendimento(LocalDateTime.now().plusHours(2));
+          ag.setProcedimento("Consulta de Rotina");
+          agendaRepo.save(ag);
 
-                // — Procedimento de teste —
-                Procedimento procedimento = new Procedimento();
-                procedimento.setDescricao("Consulta de Rotina");
-                procedimento.setData(LocalDate.now());
-                // ** aqui garantimos que o campo horário não fique nulo **
-                procedimento.setHorario(LocalDateTime.now());
-                procedimento.setValor(120.0);
-                procedimento.setCliente(cliente);
-                procedimentoRepo.save(procedimento);
+          // — Procedimento de exemplo —
+          Procedimento pr = new Procedimento();
+          pr.setCliente(cli);
+          pr.setDescricao("Consulta de Rotina");
+          pr.setData(LocalDate.now());
+          pr.setHorario(LocalDateTime.now());
+          pr.setValor(120.0);
+          procRepo.save(pr);
 
-                System.out.println("Dados iniciais carregados com sucesso!");
-            }
-        };
+          System.out.println("Dados iniciais carregados com sucesso!");
+        }
+      };
     }
 }

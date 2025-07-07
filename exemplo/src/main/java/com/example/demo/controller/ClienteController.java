@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,32 +19,37 @@ import com.example.demo.repository.ClienteRepository;
 public class ClienteController {
 
     @Autowired
-    private ClienteRepository clienteRepository;
+    private ClienteRepository repo;
+
+    @GetMapping
+    public String listar(Model model) {
+        List<Cliente> clientes = repo.findAll();
+        model.addAttribute("clientes", clientes);
+        return "lista-clientes";
+    }
 
     @GetMapping("/novo")
-    public String novoClienteForm(Model model) {
+    public String novo(Model model) {
         model.addAttribute("cliente", new Cliente());
-        model.addAttribute("clientes", clienteRepository.findAll());
         return "cadastro-cliente";
     }
 
     @PostMapping("/salvar")
-    public String salvarCliente(@ModelAttribute Cliente cliente) {
-        clienteRepository.save(cliente);
-        return "redirect:/clientes/novo";
+    public String salvar(@ModelAttribute Cliente cliente) {
+        repo.save(cliente);
+        return "redirect:/clientes";
     }
 
     @GetMapping("/editar/{cpf}")
-    public String editarCliente(@PathVariable String cpf, Model model) {
-        Cliente cliente = clienteRepository.findById(cpf).orElseThrow();
-        model.addAttribute("cliente", cliente);
-        model.addAttribute("clientes", clienteRepository.findAll());
+    public String editar(@PathVariable String cpf, Model model) {
+        Cliente c = repo.findById(cpf).orElseThrow();
+        model.addAttribute("cliente", c);
         return "cadastro-cliente";
     }
 
     @GetMapping("/excluir/{cpf}")
-    public String excluirCliente(@PathVariable String cpf) {
-        clienteRepository.deleteById(cpf);
-        return "redirect:/clientes/novo";
+    public String excluir(@PathVariable String cpf) {
+        repo.deleteById(cpf);
+        return "redirect:/clientes";
     }
 }
